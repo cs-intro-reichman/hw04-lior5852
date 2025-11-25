@@ -2,42 +2,49 @@ public class Primes {
     public static void main(String[] args) {
 
         int n = Integer.parseInt(args[0]);
-        if (n < 2) {
-            System.out.println("There are 0 primes between 2 and " + n + "(0% are primes)");
-            return;
 
+        if (n < 2) {
+            System.out.println("Prime numbers up to " + n + ":");
+            System.out.println("There are 0 primes between 2 and " + n + " (0% are primes)");
+            return;
         }
-        
-        boolean[] isprime = new boolean[n+1];
+
+        boolean[] isPrime = new boolean[n + 1];
+
         int i = 2;
-        while ( i <= n) {
-            isprime[i] = true;
+        while (i <= n) {
+            isPrime[i] = true;
             i++;
         }
-        int k = 2 * 2;
-        while (k <=n) {
-            isprime[k] = false;
-            k = k + 2;
-        }
-        k = 3 * 3;
-        while (k <=n) {
-            isprime[k] = false;
-            k = k + 3;
-        }
-        k = 5 * 5;
-        while (k <=n) {
-            isprime[k] = false;
-            k = k + 5;
-        }
-        int countprime = 0;
-        int x = 2;
-        while (x <=n ){
-            if (isprime[x]) {
-                countprime ++ ; 
+
+        int p = 2;
+        while (p * p <= n) {
+
+            if (isPrime[p]) {
+                int k = p * p;
+                while (k <= n) {
+                    isPrime[k] = false;
+                    k = k + p;
+                }
             }
-             x ++;
+
+            p++;
         }
-        int percent = ((countprime * 100)/(n-1)) ;
-        System.out.println("There are " + countprime + " primes 2 between " + n + "(" + percent + "% are primes)");
+        System.out.println("Prime numbers up to " + n + ":");
+
+        int count = 0;
+        int x = 2;
+        while (x <= n) {
+            if (isPrime[x]) {
+                System.out.println(x);
+                count++;
+            }
+            x++;
+        }
+
+        int percent = (count * 100) / (n - 1);
+
+        System.out.println("There are " + count + " primes between 2 and " 
+                           + n + " (" + percent + "% are primes)");
     }
 }
